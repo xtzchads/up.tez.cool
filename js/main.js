@@ -16,7 +16,7 @@ function updateProgressBar(totalFrozen, totalSupply, duration) {
 }
 
 
-const totalBackgrounds = 10;
+const totalBackgrounds = 9;
 let currentBackground = Math.floor(Math.random() * (totalBackgrounds)) + 1;
 
 let ema = 0;
