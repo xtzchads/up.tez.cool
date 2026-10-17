@@ -27,10 +27,18 @@
                 border-bottom: 1px solid rgba(255, 255, 255, 0.26);
                 padding: 16px 24px;
                 z-index: 100;
-                transition: .3s;
+                transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+                transform: translateY(0);
+                opacity: 1;
                 display: flex;
                 align-items: center;
                 width: 100%;
+            }
+
+            .header.header-hidden {
+                transform: translateY(calc(-100% - 2px));
+                opacity: 0;
+                pointer-events: none;
             }
 
             .header-content {
@@ -201,6 +209,6 @@
             <source src="" type="audio/mpeg" />
             Your browser does not support the audio element.
         </audio>
-        <script src="js/main.js?v=7"></script>
+        <script src="js/main.js?v=8"></script>
     </body>
 </html>
