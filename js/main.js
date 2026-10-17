@@ -196,4 +196,103 @@ window.onload = function () {
     switchBackground();
     fetchAndUpdateData();
     backgroundMusic.src = `music/1.mp3`;
-}
+};
+
+// Auto-hide header on load; reveal on top-region mouse hover (desktop) or page tap (mobile)
+(function initAutoHideHeader() {
+    const header = document.querySelector(".header");
+    if (!header) return;
+
+    let headerHeight = header.offsetHeight || 80;
+    let mobileHideTimer = null;
+    const MOBILE_AUTO_HIDE_MS = 5000;
+
+    function updateHeaderHeight() {
+        const h = header.offsetHeight;
+        if (h > 0) headerHeight = h;
+    }
+
+    function showHeader() {
+        header.classList.remove("header-hidden");
+    }
+
+    function hideHeader() {
+        if (mobileHideTimer) {
+            clearTimeout(mobileHideTimer);
+            mobileHideTimer = null;
+        }
+        header.classList.add("header-hidden");
+    }
+
+    function scheduleMobileAutoHide() {
+        if (mobileHideTimer) clearTimeout(mobileHideTimer);
+        mobileHideTimer = setTimeout(() => {
+            header.classList.add("header-hidden");
+            mobileHideTimer = null;
+        }, MOBILE_AUTO_HIDE_MS);
+    }
+
+    function isMobileEnvironment() {
+        return window.matchMedia("(hover: none), (pointer: coarse), (max-width: 768px)").matches;
+    }
+
+    // Slide up and hide header on app load
+    function hideOnLoad() {
+        updateHeaderHeight();
+        setTimeout(() => {
+            hideHeader();
+        }, 300);
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", hideOnLoad);
+    } else {
+        hideOnLoad();
+    }
+
+    window.addEventListener("resize", updateHeaderHeight);
+
+    // Desktop: slide down when mouse enters the top header region, slide up when it leaves
+    window.addEventListener("pointermove", (e) => {
+        if (e.pointerType && e.pointerType !== "mouse") return;
+        updateHeaderHeight();
+        if (e.clientY <= headerHeight) {
+            showHeader();
+        } else if (!header.matches(":hover")) {
+            hideHeader();
+        }
+    });
+
+    header.addEventListener("mouseenter", () => {
+        if (!isMobileEnvironment()) {
+            showHeader();
+        }
+    });
+
+    header.addEventListener("mouseleave", (e) => {
+        if (!isMobileEnvironment() && e.clientY > headerHeight) {
+            hideHeader();
+        }
+    });
+
+    // Mobile: tap anywhere on the page to slide header down
+    document.addEventListener("pointerup", (e) => {
+        const isTouch = e.pointerType === "touch" || e.pointerType === "pen";
+        if (!isTouch && !isMobileEnvironment()) return;
+
+        const clickedInsideHeader = header.contains(e.target);
+        if (header.classList.contains("header-hidden")) {
+            showHeader();
+            scheduleMobileAutoHide();
+        } else if (clickedInsideHeader) {
+            scheduleMobileAutoHide();
+        } else {
+            const clickedControls = e.target.closest(".content");
+            if (clickedControls) {
+                scheduleMobileAutoHide();
+            } else {
+                hideHeader();
+            }
+        }
+    });
+})();
