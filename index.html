@@ -4,12 +4,13 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content="TezCalm - A calming interface for tracking Tezos staking data in real-time, accompanied by soothing background music and dynamic visuals." />
-        <title>TezCalm</title>
+        <title>TezCalm — Real-Time Tezos Staking &amp; Zen Ambience</title>
         <link rel="icon" type="image/x-icon" href="favicon.ico" />
-        <link rel="stylesheet" href="css/main.css?v=1.8" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Monda:wght@400;500;600;700&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="css/main.css?v=2.1" />
         <style>
-            @import url("https://fonts.googleapis.com/css?family=Monda:400,500,600");
-
             .header, .header * {
                 box-sizing: border-box;
                 -webkit-font-smoothing: antialiased;
@@ -185,30 +186,34 @@
 
         <div class="content">
             <div class="button-container">
-                <button id="musicButton" class="music-button">
+                <button id="musicButton" class="music-button" title="Play / Pause Ambient Audio">
                     <img id="musicIcon" src="icons/silence.png" alt="Audio Icon" />
+                    <span class="btn-label">Audio</span>
                 </button>
-                <button id="shuffleButton" class="music-button">
+                <button id="shuffleButton" class="music-button" title="Switch Ambient Track">
                     <img id="shuffleIcon" src="icons/shuffle.png" alt="Shuffle Icon" />
+                    <span class="btn-label">Track</span>
                 </button>
-                <button id="backgroundButton" class="music-button">
+                <button id="backgroundButton" class="music-button" title="Switch Background Visual">
                     <img id="backgroundIcon" src="icons/background.png" alt="Background Icon" />
+                    <span class="btn-label">Scene</span>
                 </button>
             </div>
-            <div id="realtimeData" class="realtime-data">Staked ꜩ: 0.000000</div>
+
+            <div class="staking-hero-box">
+                <div id="realtimeData" class="realtime-data">Staked ꜩ: 0.00</div>
+            </div>
+
             <div class="progress-bar">
                 <div id="progress" class="progress"></div>
-                <div id="progressText" class="progress-text">0%</div>
+                <div id="progressText" class="progress-text">0.00%</div>
             </div>
-            <a href="https://github.com/xtzchads/up.tez.cool" class="icon-link" target="_blank" rel="noopener noreferrer">
-                <img src="icons/Tezos-social-icon-black-04.png" alt="Tezos Icon" />
-            </a>
         </div>
 
         <audio id="backgroundMusic" loop>
             <source src="" type="audio/mpeg" />
             Your browser does not support the audio element.
         </audio>
-        <script src="js/main.js?v=final"></script>
+        <script src="js/main.js?v=2.1"></script>
     </body>
 </html>
