@@ -1,115 +1,265 @@
+/* ==========================================================================
+   TezCalm (up.tez.cool) — Modernized Dark Glassmorphism Design System
+   Matches eye.tez.cool, stake.tez.cool, trollbox.tez.cool & chat.tez.cool
+   ========================================================================== */
+
+:root {
+    --bg-deep: #090b16;
+    --bg-surface: #0f1322;
+    --bg-glass: rgba(15, 19, 34, 0.74);
+    --bg-glass-elevated: rgba(24, 30, 52, 0.88);
+    --bg-glass-inset: rgba(8, 10, 24, 0.72);
+    --border-subtle: rgba(255, 255, 255, 0.1);
+    --border-bright: rgba(162, 124, 238, 0.42);
+    --border-cyan: rgba(0, 242, 242, 0.38);
+
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+
+    --accent-cyan: #00f2f2;
+    --accent-aqua: #00d2ff;
+    --accent-blue: #3a7bd5;
+    --accent-purple: #a27cee;
+    --accent-indigo: #6366f1;
+    --accent-emerald: #10b981;
+
+    --font-display: 'Monda', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+
+    --radius-sm: 10px;
+    --radius-md: 14px;
+    --radius-lg: 20px;
+    --radius-xl: 24px;
+    --radius-pill: 9999px;
+
+    --shadow-glass: 0 24px 60px -10px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.07);
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+}
+
 body {
-                margin: 0;
-                padding: 0;
-                height: 100vh;
-                font-family: "GT Eesti Pro Display Regular", sans-serif;
-                background-color: transparent;
-                color: #333;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                flex-direction: column;
-            }
+    margin: 0;
+    padding: 20px;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    font-family: var(--font-sans);
+    background-color: var(--bg-deep);
+    color: var(--text-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color-scheme: dark;
+}
 
-            .videoContainer {
-                position: relative;
-                width: 100%;
-                height: 100%;
-            }
+.video-container,
+.videoContainer {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
 
-            #backgroundVideo {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                z-index: 0;
-            }
+#backgroundVideo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
 
-            #overlay {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: black;
-                opacity: 0;
-                z-index: 1;
-                transition: opacity 0.5s ease;
-            }
+#overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-deep);
+    opacity: 0;
+    z-index: 1;
+    transition: opacity 0.5s ease;
+}
 
-            .content {
-                position: relative;
-                z-index: 1;
-                text-align: center;
-                padding: 10px;
-                background-color: rgba(255, 255, 255, 0.8);
-                border-radius: 10px;
-                max-width: 800px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-            }
+/* ==========================================================================
+   Main Glassmorphic Centerpiece Card (.content)
+   ========================================================================== */
+.content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 495px;
+    padding: 20px 22px 22px;
+    background: var(--bg-glass);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid var(--border-subtle);
+    border-radius: 22px;
+    box-shadow: var(--shadow-glass), 0 0 38px rgba(127, 75, 231, 0.14);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    text-align: center;
+    overflow: hidden;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
 
-            .button-container {
-                display: flex;
-                gap: 5px;
-            }
+/* Top neon accent line matching TezCool suite cards */
+.content::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 22px;
+    right: 22px;
+    height: 2px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent-purple), var(--accent-cyan), transparent);
+    opacity: 0.85;
+    pointer-events: none;
+}
 
+.content:hover {
+    border-color: rgba(162, 124, 238, 0.28);
+    box-shadow: var(--shadow-glass), 0 0 48px rgba(0, 242, 242, 0.14);
+}
 
-            .music-button {
-                background-color: transparent;
-                border: none;
-                font-size: 16px;
-                cursor: pointer;
-                border-radius: 5px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                transition: background-color 0.3s ease;
-            }
+/* ==========================================================================
+   Centered Audio / Scene Controls (.button-container)
+   ========================================================================== */
+.button-container {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 4px;
+    margin: 0 auto;
+    background: var(--bg-glass-inset);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+}
 
-            .music-button img {
-                width: 24px;
-                height: 24px;
-            }
+.music-button {
+    height: 32px;
+    padding: 0 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid transparent;
+    border-radius: 9px;
+    color: var(--text-secondary);
+    font-family: var(--font-sans);
+    font-size: 0.76rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+}
 
-            .music-button:hover {
-                background-color: rgba(0, 0, 0, 0.1);
-            }
+.music-button img {
+    width: 15px;
+    height: 15px;
+    filter: brightness(0) invert(1);
+    opacity: 0.85;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
 
+.music-button:hover {
+    background: rgba(162, 124, 238, 0.16);
+    border-color: var(--border-bright);
+    color: var(--text-primary);
+    transform: translateY(-1px);
+}
 
+.music-button:hover img {
+    opacity: 1;
+}
 
-            .icon-link {
-                margin-top: 10px;
-            }
+.music-button.is-playing {
+    background: linear-gradient(135deg, rgba(162, 124, 238, 0.24), rgba(0, 242, 242, 0.18));
+    border-color: var(--border-cyan);
+    color: #ffffff;
+    box-shadow: 0 0 14px rgba(0, 242, 242, 0.22);
+}
 
-            .icon-link img {
-                width: 30px;
-                height: 30px;
-            }
+.music-button.is-playing img {
+    opacity: 1;
+}
+
+/* ==========================================================================
+   Core Selling Point: Real-Time Staked ꜩ Hero Display
+   ========================================================================== */
+.staking-hero-box {
+    width: 100%;
+    padding: 16px 14px;
+    background: linear-gradient(180deg, rgba(8, 10, 24, 0.78) 0%, rgba(13, 17, 36, 0.68) 100%);
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+    box-shadow: inset 0 2px 12px rgba(0, 0, 0, 0.45);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.realtime-data {
+    display: inline-block;
+    width: auto;
+    max-width: 100%;
+    margin: 0;
+    padding: 2px 10px;
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+    overflow: visible;
+    font-family: var(--font-mono);
+    font-size: clamp(1.15rem, 3.2vw, 1.62rem);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0;
+    white-space: nowrap;
+    text-align: center;
+    background-image: linear-gradient(135deg, #ffffff 0%, #e0f2fe 45%, #00f2f2 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 0 16px rgba(0, 242, 242, 0.22));
+    transition: transform 0.2s ease;
+}
+
+/* ==========================================================================
+   Progress Bar: Total Supply Staked Ratio
+   ========================================================================== */
 .progress-bar {
     width: 100%;
-    max-width: 600px;
-    height: 30px;
-    background-color: rgba(255, 255, 255, 0.2);
-    border-radius: 20px;
-	margin-top:10px;
+    max-width: 100%;
+    height: 31px;
+    margin-top: 0;
+    background-color: var(--bg-glass-inset);
+    border-radius: var(--radius-pill);
     overflow: hidden;
     position: relative;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .progress {
     height: 100%;
     width: 0;
-    background: linear-gradient(90deg, #3a7bd5, #00d2ff);
-    box-shadow: 0 0 10px rgba(0, 210, 255, 0.7);
+    background: linear-gradient(90deg, #7f4be7 0%, #3a7bd5 50%, #00f2f2 100%);
+    box-shadow: 0 0 16px rgba(0, 242, 242, 0.55);
+    border-radius: var(--radius-pill);
     transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
     position: relative;
     overflow: hidden;
@@ -125,22 +275,27 @@ body {
     background: linear-gradient(
         90deg,
         transparent,
-        rgba(255, 255, 255, 0.3),
+        rgba(255, 255, 255, 0.32),
         transparent
     );
-    animation: shimmer 1.5s infinite;
+    animation: shimmer 1.8s infinite;
     transform: skewX(-20deg);
 }
 
 .progress-text {
-    font-size: 14px;
+    font-family: var(--font-mono);
+    font-size: 0.81rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: #000;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    color: #ffffff;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.85), 0 0 10px rgba(9, 11, 22, 0.75);
     z-index: 2;
+    pointer-events: none;
 }
 
 @keyframes shimmer {
@@ -154,28 +309,35 @@ body {
 
 @keyframes pulse {
     0% {
-        box-shadow: 0 0 0 0 rgba(0, 210, 255, 0.7);
+        box-shadow: 0 0 0 0 rgba(0, 242, 242, 0.7);
     }
     70% {
-        box-shadow: 0 0 0 10px rgba(0, 210, 255, 0);
+        box-shadow: 0 0 0 12px rgba(0, 242, 242, 0);
     }
     100% {
-        box-shadow: 0 0 0 0 rgba(0, 210, 255, 0);
+        box-shadow: 0 0 0 0 rgba(0, 242, 242, 0);
     }
 }
 
-.realtime-data {
-    font-size: 24px;
-    background-color: rgba(0, 0, 0, 0.5);
-    padding: 12px 15px;
-    border-radius: 12px;
-    margin-top: 10px;
-    color: #fff;
-    width: 200px;
-    text-align: center;
-    overflow: hidden;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease;
+@media (max-width: 560px) {
+    .content {
+        padding: 18px 16px;
+        gap: 14px;
+    }
+
+    .calm-toolbar {
+        justify-content: center;
+    }
+
+    .btn-label {
+        display: none;
+    }
+
+    .music-button {
+        padding: 0 9px;
+    }
+
+    .staking-hero-box {
+        padding: 16px 14px;
+    }
 }
