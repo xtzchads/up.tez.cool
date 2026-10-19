@@ -12,7 +12,6 @@ function updateProgressBar(totalFrozen, totalSupply, duration) {
         void progressBar.offsetWidth;
         progressBar.style.animation = 'pulse 0.6s';
     }
-    progressBar.style.background = 'linear-gradient(90deg, #3a7bd5, #00d2ff)';
 }
 
 
@@ -88,21 +87,11 @@ function animateValue(start, end, duration, type) {
         const progress = Math.min((timestamp - startTimestamp) / duration, 1);
         const current = start + progress * (end - start);
 
-            // Display formatted number with fixed width for Tezos
-            element.textContent = `Staked ꜩ: ${current.toLocaleString(undefined, {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-            })}`;
-
-        // Adjust font size dynamically based on content length
-        const contentWidth = element.offsetWidth;
-        const elementWidth = element.clientWidth;
-        const fontSize = parseInt(window.getComputedStyle(element).fontSize);
-        if (contentWidth > elementWidth) {
-            element.style.fontSize = `${fontSize - 1}px`;
-        } else if (fontSize < 24) {
-            element.style.fontSize = "24px";
-        }
+        // Display formatted number with tabular numerals for Tezos
+        element.textContent = `Staked ꜩ: ${current.toLocaleString(undefined, {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        })}`;
 
         if (progress < 1) {
             window.requestAnimationFrame(step);
@@ -141,6 +130,7 @@ function playMusic() {
     .then(function () {
         musicIcon.src = "icons/audio.png";
         musicIcon.alt = "Pause Icon";
+        musicButton.classList.add("is-playing");
     })
     .catch(function (error) {
         console.error("Failed to start audio playback:", error);
@@ -151,6 +141,7 @@ function pauseMusic() {
     backgroundMusic.pause();
     musicIcon.src = "icons/silence.png";
     musicIcon.alt = "Audio Icon";
+    musicButton.classList.remove("is-playing");
 }
 
 function switchTrack() {
