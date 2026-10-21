@@ -38,12 +38,12 @@ async function fetchAndUpdateData() {
         const fetchTime = performance.now() - startTime; // Calculate fetch time
         
         // Process Tezos data
-        stakingRatios = data.map((block) => block.totalFrozen / 1000000);
+        stakingRatios = data.map((block) => (block.totalOwnStaked + block.totalExternalStaked) / 1000000);
         ema = calculateEMA(stakingRatios, 'tezos');
 
         const animationDuration = Math.max(0, 30000 - fetchTime); // Adjust animation time
         
-        updateProgressBar(data[0].totalFrozen, data[0].totalSupply, animationDuration);
+        updateProgressBar((data[0].totalOwnStaked + data[0].totalExternalStaked), data[0].totalSupply, animationDuration);
     } catch (error) {
         console.error("Error fetching data:", error);
     }
